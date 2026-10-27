@@ -1,0 +1,18 @@
+
+[
+  {
+    "id": 1,
+    "title": "API Rate Limiting",
+    "content": "HTTP 429 indicates too many requests. Check API rate limits, inspect recent request volume, and recommend exponential backoff with retry."
+  },
+  {
+    "id": 2,
+    "title": "Login and Authentication Issues",
+    "content": "When users cannot log in, check authentication service health, identity provider availability, token expiration, and authentication logs. Escalate if multiple customers are affected."
+  },
+  {
+    "id": 3,
+    "title": "Database Connection Errors",
+    "content": "For database connectivity failures, verify database availability, connection pool usage, network connectivity, and recent deployment changes."
+  }
+]

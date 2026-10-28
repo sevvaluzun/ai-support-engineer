@@ -358,7 +358,7 @@ const filteredTickets = tickets.filter(ticket => {
         <div className="sidebar-bottom">
           <div className="system-dot" />
           <div>
-            <strong>Local workspace</strong>
+            <strong>AI Support Platform</strong>
             <small>FastAPI + Gemini</small>
           </div>
         </div>
@@ -410,7 +410,7 @@ const filteredTickets = tickets.filter(ticket => {
               <div className="section-heading">
                 <div>
                   <h2>Recent tickets</h2>
-                  <p>Customer requests from your SQLite database</p>
+                  <p>Customer requests from your database</p>
                 </div>
                 <button className="text-button" onClick={loadTickets}>
                   ↻ Refresh
@@ -502,7 +502,7 @@ const filteredTickets = tickets.filter(ticket => {
                     <b>01</b>
                     <div>
                       <strong>Create a ticket</strong>
-                      <p>Store the customer issue in SQLite.</p>
+                      <p>Store the customer issue in the database.</p>
                     </div>
                   </div>
                   <div className="workflow-step">
@@ -579,7 +579,7 @@ const filteredTickets = tickets.filter(ticket => {
               <section className="panel investigation-panel">
                 <div className="panel-heading">
                   <h2>Select a support ticket</h2>
-                  <p>Choose an existing ticket from SQLite</p>
+                  <p>Choose an existing support ticket</p>
                 </div>
 
                 <select
@@ -753,7 +753,7 @@ const filteredTickets = tickets.filter(ticket => {
           )}
 
           <footer className="footer">
-            SupportAI · AI Support Engineer · Local Development
+            SupportAI · AI Support Engineer · Cloud Development
           </footer>
         </div>
       </main>

@@ -62,11 +62,15 @@ def get_connection():
 # DATABASE INITIALIZATION
 # -----------------------------------
 
+
 def initialize_database():
     database_type = get_database_type()
 
     with get_connection() as conn:
 
+        # -----------------------------------
+        # POSTGRESQL (NEON)
+        # -----------------------------------
         if database_type == "postgresql":
 
             conn.execute("""
@@ -103,6 +107,17 @@ def initialize_database():
                 sources TEXT NOT NULL DEFAULT '[]'
             """)
 
+            # Daily AI usage tracking
+            conn.execute("""
+                CREATE TABLE IF NOT EXISTS ai_daily_usage (
+                    usage_date TEXT PRIMARY KEY,
+                    request_count INTEGER NOT NULL DEFAULT 0
+                )
+            """)
+
+        # -----------------------------------
+        # SQLITE (LOCAL DEVELOPMENT)
+        # -----------------------------------
         else:
 
             conn.execute("""
@@ -145,6 +160,48 @@ def initialize_database():
                     ADD COLUMN sources
                     TEXT NOT NULL DEFAULT '[]'
                 """)
+
+# -----------------------------------
+# DAILY AI REQUEST LIMIT
+# -----------------------------------
+
+DAILY_AI_LIMIT = 10
+
+
+def consume_ai_quota():
+    """
+    Reserve one AI request for the current UTC day.
+    Shared across all demo users.
+    """
+    today = datetime.now(timezone.utc).date().isoformat()
+
+    if get_database_type() != "postgresql":
+        # Local SQLite development is not rate-limited yet.
+        return
+
+    with get_connection() as conn:
+        row = conn.execute(
+            """
+            INSERT INTO ai_daily_usage (
+                usage_date,
+                request_count
+            )
+            VALUES (%s, 1)
+            ON CONFLICT (usage_date)
+            DO UPDATE SET
+                request_count = ai_daily_usage.request_count + 1
+            WHERE ai_daily_usage.request_count < %s
+            RETURNING request_count
+            """,
+            (today, DAILY_AI_LIMIT)
+        ).fetchone()
+
+        if row is None:
+            raise HTTPException(
+                status_code=429,
+                detail="Daily AI investigation limit reached. Try again tomorrow."
+            )
+
 
 
 # -----------------------------------
@@ -361,6 +418,8 @@ def save_analysis(ticket_id: int, analysis: TicketAnalysis):
 def analyze_existing_ticket(ticket_id: int):
     ticket = get_ticket(ticket_id)
 
+    consume_ai_quota()
+
     try:
         analysis = analyze_ticket(
             subject=ticket["subject"],
@@ -449,6 +508,8 @@ def investigate_existing_ticket(ticket_id: int):
 )
 def full_investigation(ticket_id: int):
     ticket = get_ticket(ticket_id)
+    
+    consume_ai_quota()
 
     try:
         analysis = analyze_ticket(

@@ -1,6 +1,6 @@
 
 
-\# SupportAI — AI Support Engineer Platform
+# SupportAI — AI Support Engineer Platform
 
 
 
@@ -12,33 +12,33 @@ SupportAI helps support engineers investigate technical issues by combining stru
 
 
 
-\## Key Features
+## Key Features
 
 
 
-\- \*\*Ticket Management:\*\* Create, view, search, and filter customer support tickets.
+- **Ticket Management:** Create, view, search, and filter customer support tickets.
 
-\- \*\*AI-Powered Analysis:\*\* Classify issues, assign priorities, identify possible causes, and recommend next steps using Google Gemini.
+- **AI-Powered Analysis:** Classify issues, assign priorities, identify possible causes, and recommend next steps using Google Gemini.
 
-\- \*\*Retrieval-Augmented Generation (RAG):\*\* Retrieve relevant technical documentation to provide context for AI analysis.
+- **Retrieval-Augmented Generation (RAG):** Retrieve relevant technical documentation to provide context for AI analysis.
 
-\- \*\*AI Tool Calling:\*\* Allow Gemini to invoke a read-only log search tool.
+- **AI Tool Calling:** Allow Gemini to invoke a read-only log search tool.
 
-\- \*\*Full Investigation:\*\* Combine knowledge base analysis and log investigation in one workflow.
+- **Full Investigation:** Combine knowledge base analysis and log investigation in one workflow.
 
-\- \*\*Investigation History:\*\* Save and review previous AI analyses.
+- **Investigation History:** Save and review previous AI analyses.
 
-\- \*\*Database Persistence:\*\* Use SQLite locally and Neon PostgreSQL in production.
+- **Database Persistence:** Use SQLite locally and Neon PostgreSQL in production.
 
-\- \*\*Demo Access Protection:\*\* Restrict API access using a server-side access key.
+- **Demo Access Protection:** Restrict API access using a server-side access key.
 
-\- \*\*Daily AI Request Quota:\*\* Limit production AI investigation requests to 10 per UTC day.
+- **Daily AI Request Quota:** Limit production AI investigation requests to 10 per UTC day.
 
-\- \*\*Automated Testing:\*\* Run backend tests and frontend builds through GitHub Actions.
+- **Automated Testing:** Run backend tests and frontend builds through GitHub Actions.
 
 
 
-\## Tech Stack
+## Tech Stack
 
 
 
@@ -68,7 +68,7 @@ SupportAI helps support engineers investigate technical issues by combining stru
 
 
 
-\## System Architecture
+## System Architecture
 
 
 
@@ -132,7 +132,7 @@ Neon PostgreSQL stores support tickets, investigation history, and daily AI requ
 
 
 
-\## AI Investigation Workflow
+## AI Investigation Workflow
 
 
 
@@ -152,11 +152,11 @@ Neon PostgreSQL stores support tickets, investigation history, and daily AI requ
 
 
 
-\*\*Note:\*\* The log investigation uses simulated demonstration data, not logs from actual customer production systems. AI findings are advisory and should be verified before operational action.
+**Note:** The log investigation uses simulated demonstration data, not logs from actual customer production systems. AI findings are advisory and should be verified before operational action.
 
 
 
-\## Project Structure
+## Project Structure
 
 
 
@@ -222,11 +222,11 @@ ai-support-engineer/
 
 
 
-\## Run Locally with Docker
+## Run Locally with Docker
 
 
 
-\### 1. Clone the repository
+### 1. Clone the repository
 
 
 
@@ -240,7 +240,7 @@ cd ai-support-engineer
 
 
 
-\### 2. Configure environment variables
+### 2. Configure environment variables
 
 
 
@@ -264,7 +264,7 @@ By default, the application uses SQLite when `DATABASE\_URL` is not configured.
 
 
 
-\### 3. Build the Docker image
+### 3. Build the Docker image
 
 
 
@@ -276,7 +276,7 @@ docker build -t supportai .
 
 
 
-\### 4. Run the application
+### 4. Run the application
 
 
 
@@ -302,7 +302,7 @@ http://127.0.0.1:8000/
 
 
 
-\### 5. Run the tests
+### 5. Run the tests
 
 
 
@@ -318,7 +318,7 @@ The test suite uses mock AI responses and isolated database fixtures. Running th
 
 
 
-\## Production Deployment
+## Production Deployment
 
 
 
@@ -352,31 +352,31 @@ The daily request limit is tracked in PostgreSQL to retain quota counts across a
 
 
 
-\## Security and Limitations
+## Security and Limitations
 
 
 
-\- API access is restricted using a shared demo key.
+- API access is restricted using a shared demo key.
 
-\- The demo key is supplied at runtime and is not embedded in the frontend source.
+- The demo key is supplied at runtime and is not embedded in the frontend source.
 
-\- The frontend stores the entered key in memory for the active page session.
+- The frontend stores the entered key in memory for the active page session.
 
-\- Production AI investigation requests are limited to 10 per UTC day.
+- Production AI investigation requests are limited to 10 per UTC day.
 
-\- Log investigation uses simulated, read-only data.
+- Log investigation uses simulated, read-only data.
 
-\- The application does not include production-grade authentication, user roles, or tenant isolation.
+- The application does not include production-grade authentication, user roles, or tenant isolation.
 
-\- The application is intended as an educational and portfolio demonstration.
-
-
-
-\## Live Demo
+- The application is intended as an educational and portfolio demonstration.
 
 
 
-\*\*Live application:\*\* https://ai-support-engineer.onrender.com
+## Live Demo
+
+
+
+**Live application:** https://ai-support-engineer.onrender.com
 
 
 
@@ -386,55 +386,55 @@ The live demonstration requires a demo access key, which is not published in thi
 
 
 
-\## Screenshots
+## Screenshots
 
 
 
-\### Support Dashboard
+### Support Dashboard
 
-!\[SupportAI Dashboard](screenshots/dashboard.png)
-
-
-
-\### Ticket Management
-
-!\[Ticket Management](screenshots/tickets.png)
+![SupportAI Dashboard](screenshots/dashboard.png)
 
 
 
-\### AI Investigation
+### Ticket Management
 
-!\[AI Investigation](screenshots/ai-investigation.png)
-
-
-
-\### AI Analysis and Log Investigation
-
-!\[AI Analysis and Log Investigation](screenshots/ai-results.png)
+![Ticket Management](screenshots/tickets.png)
 
 
 
+### AI Investigation
 
-
-\## Future Improvements
-
-
-
-\- Role-based authentication and authorization
-
-\- Semantic search with vector embeddings
-
-\- Integrations with real monitoring and ticketing systems
-
-\- Per-user AI usage tracking
-
-\- Improved observability and audit logging
-
-\- Automated PostgreSQL integration tests
+![AI Investigation](screenshots/ai-investigation.png)
 
 
 
-\## Project Purpose
+### AI Analysis and Log Investigation
+
+![AI Analysis and Log Investigation](screenshots/ai-results.png)
+
+
+
+
+
+## Future Improvements
+
+
+
+- Role-based authentication and authorization
+
+- Semantic search with vector embeddings
+
+- Integrations with real monitoring and ticketing systems
+
+- Per-user AI usage tracking
+
+- Improved observability and audit logging
+
+- Automated PostgreSQL integration tests
+
+
+
+## Project Purpose
 
 
 

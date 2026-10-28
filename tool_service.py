@@ -12,7 +12,15 @@ def investigate_ticket_logs(subject: str, description: str) -> str:
 
     client = genai.Client(
         api_key=os.environ["GEMINI_API_KEY"],
-        http_options={"timeout": 15000}
+        http_options=types.HttpOptions(
+            timeout=60000,
+            retry_options=types.HttpRetryOptions(
+                attempts=2,
+                http_status_codes=[503, 504],
+                initial_delay=1,
+                max_delay=2,
+            ),
+        ),
     )
 
     prompt = f"""
@@ -42,16 +50,18 @@ Rules:
             tools=[search_logs],
             automatic_function_calling=types.AutomaticFunctionCallingConfig(
                 disable=False,
-                maximum_remote_calls=10
+                maximum_remote_calls=10,
             ),
-            temperature=0
-        )
+            temperature=0,
+        ),
     )
 
     response = chat.send_message(prompt)
 
     if not response.text:
-        raise ValueError("Gemini returned an empty investigation")
+        raise ValueError(
+            "Gemini returned an empty investigation"
+        )
 
     return response.text
 
@@ -59,7 +69,7 @@ Rules:
 if __name__ == "__main__":
     result = investigate_ticket_logs(
         subject="Login Error",
-        description="Users cannot log in to the application."
+        description="Users cannot log in to the application.",
     )
 
     print("LOG INVESTIGATION:")

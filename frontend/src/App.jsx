@@ -1,5 +1,6 @@
 
 import { useEffect, useState } from 'react'
+import { apiFetch, setDemoAccessKey } from './api'
 import './App.css'
 
 const API = '/api'
@@ -23,9 +24,13 @@ function App() {
   const [notice, setNotice] = useState('')
   const [searchQuery, setSearchQuery] = useState('')
   const [statusFilter, setStatusFilter] = useState('all')
+  const [unlocked, setUnlocked] = useState(import.meta.env.DEV)
+  const [accessKeyInput, setAccessKeyInput] = useState('')
+  const [accessError, setAccessError] = useState('')
+  const [checkingAccess, setCheckingAccess] = useState(false)
 
   async function apiRequest(path, options = {}) {
-    const response = await fetch(`${API}${path}`, options)
+    const response = await apiFetch(`${API}${path}`, options)
 
     if (!response.ok) {
       let message = `Request failed (${response.status})`
@@ -59,11 +64,13 @@ function App() {
   }
 
   useEffect(() => {
+  if (unlocked) {
     loadTickets()
-  }, [])
+  }
+}, [unlocked])
 
   useEffect(() => {
-    if (selectedId === null) {
+    if (!unlocked || selectedId === null) {
       setAnalyses([])
       return
     }
@@ -81,7 +88,7 @@ function App() {
     return () => {
       cancelled = true
     }
-  }, [selectedId])
+  }, [selectedId, unlocked])
 
   const selectedTicket = tickets.find(
     ticket => ticket.id === selectedId
@@ -169,6 +176,149 @@ const filteredTickets = tickets.filter(ticket => {
 
   return matchesSearch && matchesStatus
 })
+
+  async function unlockDemo(event) {
+    event.preventDefault()
+
+    const key = accessKeyInput.trim()
+
+    if (!key) {
+      setAccessError('Please enter your demo access key.')
+      return
+    }
+
+    setCheckingAccess(true)
+    setAccessError('')
+    setDemoAccessKey(key)
+
+    try {
+      const response = await apiFetch(`${API}/tickets`)
+
+      if (!response.ok) {
+        throw new Error(
+          response.status === 401
+            ? 'Invalid demo access key.'
+            : `Connection failed (${response.status}).`
+        )
+      }
+
+      setAccessKeyInput('')
+      setUnlocked(true)
+    } catch (err) {
+      setDemoAccessKey('')
+      setAccessError(err.message)
+    } finally {
+      setCheckingAccess(false)
+    }
+  }
+
+  if (!unlocked) {
+    return (
+      <div style={{
+        minHeight: '100vh',
+        display: 'grid',
+        placeItems: 'center',
+        padding: '24px',
+        background: '#0b1120',
+        color: '#f8fafc'
+      }}>
+        <form
+          onSubmit={unlockDemo}
+          style={{
+            width: '100%',
+            maxWidth: '410px',
+            padding: '36px',
+            borderRadius: '18px',
+            border: '1px solid #334155',
+            background: '#111c30'
+          }}
+        >
+          <div style={{
+            fontSize: '30px',
+            marginBottom: '12px'
+          }}>
+            ✦
+          </div>
+
+          <h1 style={{ marginBottom: '8px' }}>
+            SupportAI
+          </h1>
+
+          <p style={{
+            color: '#94a3b8',
+            marginBottom: '28px'
+          }}>
+            Enter your demo access key to continue
+            to the AI Support Engineer platform.
+          </p>
+
+          <label htmlFor="demo-key">
+            Demo Access Key
+          </label>
+
+          <input
+            id="demo-key"
+            type="password"
+            autoComplete="off"
+            value={accessKeyInput}
+            onChange={event =>
+              setAccessKeyInput(event.target.value)
+            }
+            placeholder="Enter access key"
+            required
+            style={{
+              boxSizing: 'border-box',
+              width: '100%',
+              padding: '13px',
+              marginTop: '10px',
+              marginBottom: '18px',
+              borderRadius: '9px',
+              border: '1px solid #475569',
+              background: '#0b1120',
+              color: '#f8fafc'
+            }}
+          />
+
+          {accessError && (
+            <p role="alert" style={{
+              color: '#fca5a5',
+              marginBottom: '16px'
+            }}>
+              {accessError}
+            </p>
+          )}
+
+          <button
+            type="submit"
+            disabled={checkingAccess}
+            style={{
+              width: '100%',
+              padding: '13px',
+              border: 0,
+              borderRadius: '9px',
+              background: '#6366f1',
+              color: 'white',
+              fontWeight: 600,
+              cursor: 'pointer'
+            }}
+          >
+            {checkingAccess
+              ? 'Verifying...'
+              : 'Access Workspace'}
+          </button>
+
+          <p style={{
+            marginTop: '22px',
+            fontSize: '12px',
+            color: '#64748b',
+            textAlign: 'center'
+          }}>
+            Protected demonstration environment
+          </p>
+        </form>
+      </div>
+    )
+  }
 
 
   return (

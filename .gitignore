@@ -21,3 +21,4 @@ frontend/dist/
 # System
 .vscode/
 .DS_Storeapp_backup_before_rate_limit.py
+desktop.ini

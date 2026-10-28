@@ -74,51 +74,51 @@ SupportAI helps support engineers investigate technical issues by combining stru
 
 ```text
 
-&#x20;                 User / Browser
+                  User / Browser
 
-&#x20;                       |
+                        |
 
-&#x20;                       v
+                        v
 
-&#x20;                 React Frontend
+                  React Frontend
 
-&#x20;                       |
+                        |
 
-&#x20;                       v
+                        v
 
-&#x20;                 FastAPI Backend
+                  FastAPI Backend
 
-&#x20;                       |
+                        |
 
-&#x20;         +-------------+-------------+
+          +-------------+-------------+
 
-&#x20;         |             |             |
+          |             |             |
 
-&#x20;         v             v             v
+          v             v             v
 
-&#x20;    Ticket API     RAG Retrieval   Log Search Tool
+     Ticket API     RAG Retrieval   Log Search Tool
 
-&#x20;         |             |             |
+          |             |             |
 
-&#x20;         v             +------+------+ 
+          v             +------+------+ 
 
-&#x20;  Neon PostgreSQL             |
+   Neon PostgreSQL             |
 
-&#x20;                              v
+                               v
 
-&#x20;                        Google Gemini
+                         Google Gemini
 
-&#x20;                              |
+                               |
 
-&#x20;                              v
+                               v
 
-&#x20;                    AI Investigation Results
+                     AI Investigation Results
 
-&#x20;                              |
+                               |
 
-&#x20;                              v
+                               v
 
-&#x20;                        React Dashboard
+                         React Dashboard
 
 ```
 
@@ -284,11 +284,11 @@ docker build -t supportai .
 
 docker run --rm -p 127.0.0.1:8000:8000 \\
 
-&#x20; -v supportai-data:/app/data \\
+  -v supportai-data:/app/data \\
 
-&#x20; --env-file .env \\
+  --env-file .env \\
 
-&#x20; supportai
+  supportai
 
 ```
 

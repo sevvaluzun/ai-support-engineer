@@ -670,3 +670,204 @@ textarea { resize: vertical; }
     animation: none;
   }
 }
+
+/* =========================================
+   SUPPORTAI - UI REFINEMENT
+   ========================================= */
+
+/* Main layout */
+.content {
+  max-width: 1480px;
+  padding: 32px 38px;
+}
+
+.page-heading {
+  margin-bottom: 24px;
+}
+
+.page-heading h1 {
+  font-size: 30px;
+  line-height: 1.25;
+}
+
+.page-heading p,
+.section-heading p,
+.panel-heading p {
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* Sidebar navigation */
+.navigation button {
+  font-size: 14px;
+}
+
+.sidebar-bottom {
+  font-size: 13px;
+}
+
+/* Dashboard cards */
+.stat-card {
+  min-height: 145px;
+  padding: 23px 25px;
+}
+
+.stat-header {
+  font-size: 14px;
+  margin-bottom: 12px;
+}
+
+.stat-card > strong {
+  font-size: 36px;
+}
+
+.stat-card > small {
+  font-size: 12px;
+}
+
+/* Ticket table */
+th {
+  font-size: 11px;
+  padding: 16px 20px;
+}
+
+td {
+  font-size: 14px;
+  padding: 16px 20px;
+}
+
+td strong {
+  font-size: 14px;
+}
+
+.row-action,
+.text-button {
+  font-size: 13px;
+}
+
+/* Panel typography */
+.panel {
+  padding: 24px;
+}
+
+.panel-heading {
+  margin-bottom: 17px;
+}
+
+.panel-heading h2 {
+  font-size: 18px;
+}
+
+.panel-heading p {
+  font-size: 14px;
+}
+
+/* Investigation ticket selection */
+.investigation-panel {
+  margin-bottom: 20px;
+}
+
+.investigation-panel select {
+  font-size: 14px;
+  margin-bottom: 12px;
+}
+
+.ticket-preview {
+  padding: 15px 18px;
+  margin-bottom: 15px;
+}
+
+.ticket-preview-top strong {
+  font-size: 15px;
+}
+
+.ticket-preview p {
+  font-size: 14px;
+  margin: 8px 0;
+}
+
+.ticket-preview small,
+.helper-text {
+  font-size: 12px;
+}
+
+/* AI results */
+.results-grid {
+  align-items: start;
+  gap: 20px;
+}
+
+.result-field {
+  margin-bottom: 16px;
+  padding-bottom: 14px;
+}
+
+.result-field > small {
+  font-size: 11px;
+  margin-bottom: 7px;
+}
+
+.result-field strong,
+.result-field p {
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.priority-badge,
+.source-chip {
+  font-size: 13px;
+}
+
+.log-output {
+  font-size: 14px;
+  line-height: 1.75;
+  padding: 20px;
+}
+
+/* Analysis history */
+.history-row strong {
+  font-size: 14px;
+}
+
+.history-row p,
+.history-row small {
+  font-size: 12px;
+}
+
+.alert {
+  font-size: 14px;
+}
+
+/* Responsive refinements */
+@media (max-width: 1050px) {
+  .content {
+    padding: 26px;
+  }
+}
+
+@media (max-width: 760px) {
+  .content {
+    padding: 22px 16px;
+  }
+
+  .page-heading h1 {
+    font-size: 26px;
+  }
+
+  .results-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .stat-card {
+    min-height: 125px;
+  }
+}
+/* Stack AI investigation result cards vertically */
+.results-grid {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 20px;
+}
+
+.results-grid .panel {
+  width: 100%;
+}
